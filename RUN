@@ -1,0 +1,29 @@
+1. Prepare Your DatasetThe code expects a dataset in a .zip format stored in your Google Drive.
+Upload to Drive: Ensure your dataset (e.g., archive.zip) is uploaded to a folder named datasets in your My Drive.
+Structure: The zip file should contain two main folders: Training and Testing. 
+Inside each, there should be subfolders for each class: glioma, meningioma, notumor, and pituitary.
+
+2. Setup Google Colab
+Go to Google Colab.
+Create a New Notebook.
+Enable GPU: Go to Edit > Notebook settings > Hardware accelerator and select T4 GPU. This is essential for training the VGG16 model efficiently.
+
+3. Execute the Code Blocks
+Copy and paste the code into separate cells and run them in order:
+Step A: Mount Drive & Extract: Run the first block to link your Google Drive and extract the images to the local /content/data directory.
+Step B: Preprocessing & Augmentation: Run the ImageDataGenerator section. This will resize your images to $224\times224$ and apply transformations like rotation and flipping to improve model generalization.
+Step C: Build & Train: This section initializes the VGG16 base model with ImageNet weights, adds custom layers, and begins training for 15 epochs.
+Step D: Evaluation: Run the confusion matrix and classification report blocks to see the precision, recall, and overall accuracy (targeted at 94-95%).
+Step E: Visualizations: Run the Grad-CAM and plot blocks to visualize the heatmaps (which highlight where the model is "looking" on the MRI) and accuracy graphs.
+
+4. Launch the Gradio Interface
+The final block launches a web-based UI.Run the Gradio cell.
+Wait for the Running on public URL: link to appear.
+Click the link or use the interface embedded in the cell to upload an MRI image and see real-time predictions.
+
+Required LibrariesThe code uses several key libraries that are pre-installed in Colab, but ensure your environment has them:
+tensorflow & keras (Deep Learning) 
+cv2 (OpenCV for image processing) 
+gradio (User interface) 
+matplotlib & numpy (Data handling and visualization)
+Note: If you encounter an error saying gradio is not found, add a cell at the very top with !pip install gradio and run it first.
